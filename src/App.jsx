@@ -13,18 +13,32 @@ function App() {
   const [genre, setGenre] = useState("");
   const [filteredMovies, setFilteredMovies] = useState(movies);
 
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
-    if (genre === "") {
-      setFilteredMovies(movies);
-    } else {
-      const filtered = movies.filter((movie) => movie.genre === genre);
-      setFilteredMovies(filtered)
-    }
-  }, [genre]);
+    const filtered = movies.filter((movie) => {
+      const matchGenre = genre === "" || movie.genre === genre;
+      const matchTitle = movie.title
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+      return matchGenre && matchTitle;
+    });
+
+    setFilteredMovies(filtered);
+  }, [genre, search]);
 
   return (
     <>
       <div className="container">
+        <input
+          type="text"
+          className="form-control mt-5"
+          placeholder="Type the movie name"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+        />
+
         <select
           className="form-select my-5"
           aria-label="Default select example"
