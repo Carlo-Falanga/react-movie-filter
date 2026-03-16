@@ -10,11 +10,22 @@ const movies = [
 ];
 
 function App() {
+  const [genre, setGenre] = useState("");
+  console.log(genre);
+  
+  
+
+
   return (
     <>
       <div className="container">
-        <select className="form-select my-5" aria-label="Default select example">
-          <option>All</option>
+        <select
+          className="form-select my-5"
+          aria-label="Default select example"
+          onChange={(e) => setGenre(e.target.value)}
+          value={genre}
+        >
+          <option value="">All</option>
           <option value="Fantascienza">Fantascienza</option>
           <option value="Thriller">Thriller</option>
           <option value="Romantico">Romantico</option>
